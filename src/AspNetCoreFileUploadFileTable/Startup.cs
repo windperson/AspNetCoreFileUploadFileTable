@@ -34,10 +34,11 @@ namespace AspNet5FileUploadFileTable
             var sqlConnectionString = Configuration["ApplicationConfiguration:SQLConnectionString"];
 
             services.AddDbContext<FileContext>(options =>
-                options.UseSqlServer(
-                    sqlConnectionString,
-                    b => b.MigrationsAssembly("AspNetCoreFileUploadFileTable")
-                )
+                //options.UseSqlServer(
+                //    sqlConnectionString,
+                //    b => b.MigrationsAssembly("AspNetCoreFileUploadFileTable")
+                //)
+                options.UseSqlite(sqlConnectionString, b=>b.MigrationsAssembly("AspNetCoreFileUploadFileTable"))
             );
 
             services.AddMvc();
