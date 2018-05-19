@@ -71,7 +71,7 @@ namespace AspNet5FileUploadFileTable.Controllers
         {
             var fileDescription = _fileRepository.GetFileDescription(id);
 
-            var path = _optionsApplicationConfiguration.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
+            var path = Path.Combine(_optionsApplicationConfiguration.Value.ServerUploadFolder, fileDescription.FileName);
             var stream = new FileStream(path, FileMode.Open);
             return File(stream, fileDescription.ContentType);
         }
