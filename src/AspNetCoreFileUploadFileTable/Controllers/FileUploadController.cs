@@ -7,7 +7,7 @@ using DataAccess.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-    
+
 using FileResult = DataAccess.Model.FileResult;
 
 namespace AspNet5FileUploadFileTable.Controllers
@@ -39,7 +39,8 @@ namespace AspNet5FileUploadFileTable.Controllers
                 {
                     if (file.Length > 0)
                     {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.ToString().Trim('"');
+                        var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.ToString().Trim('"'));
+
                         contentTypes.Add(file.ContentType);
 
                         names.Add(fileName);
@@ -51,13 +52,13 @@ namespace AspNet5FileUploadFileTable.Controllers
             }
 
             var files = new FileResult
-                            {
-                                FileNames = names,
-                                ContentTypes = contentTypes,
-                                Description = fileDescriptionShort.Description,
-                                CreatedTimestamp = DateTime.UtcNow,
-                                UpdatedTimestamp = DateTime.UtcNow,
-                            };
+            {
+                FileNames = names,
+                ContentTypes = contentTypes,
+                Description = fileDescriptionShort.Description,
+                CreatedTimestamp = DateTime.UtcNow,
+                UpdatedTimestamp = DateTime.UtcNow,
+            };
 
             _fileRepository.AddFileDescriptions(files);
 
@@ -72,7 +73,7 @@ namespace AspNet5FileUploadFileTable.Controllers
 
             var path = _optionsApplicationConfiguration.Value.ServerUploadFolder + "\\" + fileDescription.FileName;
             var stream = new FileStream(path, FileMode.Open);
-            return  File(stream, fileDescription.ContentType);
+            return File(stream, fileDescription.ContentType);
         }
     }
 }

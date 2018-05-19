@@ -1,6 +1,6 @@
 ﻿{
   "ApplicationConfiguration": {
     "SQLConnectionString": "Data Source=sqlite/FileInfo.db",
-    "ServerUploadFolder": "D:\\myTemp\\upload"
+    "ServerUploadFolder": "D:\\myTemp\\test_upload"
   }
 }
